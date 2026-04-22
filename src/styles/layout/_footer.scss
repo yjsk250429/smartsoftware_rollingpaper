@@ -1,0 +1,33 @@
+@use './../utils' as *;
+
+#footer {
+    background-color: #C2B9BA;
+    width: 100%;
+
+    .inner {
+        height: 270px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    }
+    strong {
+        font-size: 32px;
+    }
+    .adamina-title {
+        font-family: 'Adamina', serif;
+        font-weight: 400;
+    }
+    p{
+        margin-top: 14px;
+        font-size: 18px;
+    }
+    span{
+        position: absolute;
+        bottom: 10px;
+        font-weight: 300;
+        opacity: 0.8;
+    }
+}

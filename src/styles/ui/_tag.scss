@@ -1,0 +1,103 @@
+@use './../utils/unit' as *;
+@use './../utils/font' as *;
+@use './../utils/color' as *;
+@use './../utils/mixin' as *;
+
+.tag {
+    @include paddingX(8px);
+    @include paddingY(2px);
+    @include font-12px-B;
+    display: inline-block;
+    border-radius: rem(4px);
+    word-break: keep-all;
+}
+
+.html__tag {
+    background-color: $orange-red;
+    color: $white;
+}
+
+.fixed__tag {
+    background-color: $light-green;
+    color: $black;
+}
+
+.rwd__tag {
+    background-color: $coral-blue;
+    color: $white;
+}
+
+.netflix__tag {
+    background-color: red;
+    color: $black;
+}
+
+.clone__tag {
+    background: rgba($blue, 0.5);
+    color: $black;
+}
+
+.sass__tag {
+    background: rgb(255, 0, 187);
+    color: $white;
+}
+
+.take__tag {
+    border: 1px solid blue;
+    color: blue;
+}
+
+.prog__tag {
+    background: blue;
+    color: $white;
+}
+
+.git__tag {
+    background: rgba(purple, 0.5);
+    color: $black;
+}
+
+.markup__tag {
+    background: rgba(brown, 0.5);
+    color: $black;
+}
+
+.js__tag {
+    background: #f8f800;
+    color: $black;
+}
+
+.coding__tag {
+    border: 1px solid rgba($color: #008b8b, $alpha: 1);
+    color: #008b8b;
+}
+
+.cooper__tag {
+    background: rgb($light-green, 0.5);
+    color: $black;
+}
+
+.algorithm__tag {
+    background: rgb(121, 197, 222);
+    color: $black;
+}
+
+.career__tag {
+    background: $dark-yellow;
+    color: $black;
+}
+
+.interview__tag {
+    background: rgb(0, 191, 0);
+    color: $white;
+}
+
+.mental__tag {
+    background: rgb(167, 255, 167);
+    color: $black;
+}
+
+.study__tag {
+    background: rgba($orange-red, 0.8);
+    color: $black;
+}

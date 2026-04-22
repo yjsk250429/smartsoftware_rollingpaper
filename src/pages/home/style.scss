@@ -1,0 +1,156 @@
+.home{
+    // 배너영역--------------------
+    .banner{
+        .inner{
+            background-image: url('/images/bg01.jpg');
+            background-position: 0 -40px;
+            height: 820px;
+            border-radius: 24px;
+            padding-left: 83px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        }
+        .adamina-title{
+            font-family: 'Adamina', serif ;
+            font-weight: 400;
+            font-size: 40px;
+            color: #431D25;
+        }
+        p{
+            margin-top: 12px;
+            color: #3a3a3a;
+            font-size: 18px;
+        }
+
+    }
+     // 중간 텍스트 영역--------------------
+    .memorise{
+        margin: 120px auto;
+        text-align: center;
+        h2{
+            font-size: 40px;
+            color: #431D25;
+            margin-bottom: 24px;
+             font-family: 'Adamina', serif ;
+        }
+        p{
+            font-size: 20px;
+            color: #3a3a3a;
+            &.t1{
+                margin-bottom: 12px;
+            }
+        }
+    }
+     // 교수님 영역--------------------
+    .teacher{
+        background-image: url('/images/bg02.jpg');
+        .inner{
+            height: 726px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 64px;
+        }
+        .left{
+            .img-wrap{
+                width: 480px;
+                height: 600px;
+                border-radius: 24px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img{
+
+                }
+            }
+        }
+        .right{
+            em{
+                font-size: 20px;
+            }
+            strong{
+                display: block;
+                font-size: 40px;
+                margin-top: 20px;
+                margin-bottom: 16px;
+                font-weight: 500;
+                span{
+                    font-size: 16px;
+                    padding-left: 10px;
+                }
+            }
+            p{
+                margin-bottom: 40px;
+                color: #3a3a3a;
+            }
+            .tags{
+                display: flex;
+                gap: 8px;
+                li{
+                    background: #CE666D;
+                    color: #fff;
+                    padding: 8px 16px;
+                    border-radius: 50px;
+                    font-weight: 200;
+                }
+            }
+        }
+    }
+    // 편지 영역--------------------
+    .letters{
+        .inner{
+            margin: 120px auto;
+            height: 700px;
+        }
+        h2{
+            font-family: 'Adamina', serif;
+            font-size: 40px;
+            margin-bottom: 24px;
+        }
+        p{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span{
+                display: block;
+                color: #3a3a3a;
+                margin-bottom: 60px;
+                &.click{
+                    color: #fff;
+                    background: #CE666D;
+                    padding: 8px 16px;
+                    border-radius: 100px;
+                    font-weight: 300;
+                }
+            }
+        }
+        .cards{
+            display: flex;
+            gap: 36px;
+            li{
+                img{
+                    
+                }
+            }
+
+        }
+    }
+    // 갤러리 영역--------------------
+    .photos{
+        .inner{
+            height: 3700px;
+        }
+        h2{
+            font-size: 40px;
+            font-family: 'Adamina', serif;
+            margin-bottom: 16px;
+        }
+        p{
+            color: #3a3a3a;
+            margin-bottom: 60px;
+        }
+    }
+
+}
