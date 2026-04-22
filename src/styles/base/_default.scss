@@ -17,3 +17,7 @@ body {
         // padding-right: 5%;
     }
 }
+
+body.modal-open {
+    overflow: hidden;
+}
