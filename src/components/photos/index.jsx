@@ -61,7 +61,7 @@ const Photos = () => {
         gsap.set(orderedFrameItems, {
           scale: 0.3,
           opacity: 0,
-          filter: 'blur(14px)',
+          filter: 'blur(9px)',
           transformOrigin: 'center center',
         });
 
@@ -71,7 +71,7 @@ const Photos = () => {
             filter: 'blur(0px)',
             keyframes: [
               {
-                scale: 1.1,
+                scale: 1.03,
                 duration: 0.42,
                 ease: 'back.out(2.1)',
               },

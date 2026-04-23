@@ -9,17 +9,6 @@ const Letters = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const sectionRef = useRef(null);
   const cardsRef = useRef(null);
-  const dragAnimationRef = useRef({
-    frameId: null,
-    currentScrollLeft: 0,
-    targetScrollLeft: 0,
-  });
-  const dragStateRef = useRef({
-    isDragging: false,
-    startX: 0,
-    startScrollLeft: 0,
-    moved: false,
-  });
 
   useEffect(() => {
     if (selectedStudent) {
@@ -32,14 +21,6 @@ const Letters = () => {
       document.body.classList.remove('modal-open');
     };
   }, [selectedStudent]);
-
-  useEffect(() => {
-    return () => {
-      if (dragAnimationRef.current.frameId) {
-        cancelAnimationFrame(dragAnimationRef.current.frameId);
-      }
-    };
-  }, []);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -64,22 +45,19 @@ const Letters = () => {
       const setStackedState = () => {
         const cardsBounds = cards.getBoundingClientRect();
         const viewportCenter = window.innerWidth / 2;
-        const stackCenter =
-          cards.scrollLeft + (viewportCenter - cardsBounds.left);
-        const centerIndex = (cardItems.length - 1) / 2;
+        const firstCard = cardItems[0];
+        const centeredStackLeft =
+          cards.scrollLeft + (viewportCenter - cardsBounds.left) - firstCard.offsetWidth / 2;
 
         cardItems.forEach((item, index) => {
-          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-          const offsetToCenter = stackCenter - itemCenter;
-          const distanceFromCenter = index - centerIndex;
-          const depth = Math.abs(distanceFromCenter);
+          const depth = cardItems.length - index;
 
           gsap.set(item, {
-            x: offsetToCenter,
-            scale: 0.9 - depth * 0.01,
+            x: centeredStackLeft - item.offsetLeft,
+            scale: 0.92,
             filter: 'blur(10px)',
-            opacity: 0.22,
-            zIndex: Math.round(cardItems.length - depth),
+            opacity: 0.24,
+            zIndex: depth,
           });
         });
       };
@@ -134,9 +112,28 @@ const Letters = () => {
         scale: 1,
         filter: 'blur(0px)',
         opacity: 1,
+        duration: 1,
         stagger: {
-          each: 0.04,
-          from: 'center',
+          each: 0.035,
+          from: 0,
+        },
+      });
+
+      const getMaxScroll = () => Math.max(cards.scrollWidth - cards.clientWidth, 0);
+
+      gsap.to(cards, {
+        scrollLeft: () => getMaxScroll(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: cards,
+          start: 'center center',
+          end: () => `+=${getMaxScroll()}`,
+          scrub: 1,
+          pin: section,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefreshInit: resetCardsScroll,
+          onLeaveBack: resetCardsScroll,
         },
       });
     }, section);
@@ -150,98 +147,6 @@ const Letters = () => {
 
   const closeModal = () => {
     setSelectedStudent(null);
-  };
-
-  const handlePointerDown = (event) => {
-    const cards = cardsRef.current;
-
-    if (!cards || event.pointerType === 'touch') {
-      return;
-    }
-
-    dragStateRef.current = {
-      isDragging: true,
-      startX: event.clientX,
-      startScrollLeft: cards.scrollLeft,
-      moved: false,
-    };
-
-    dragAnimationRef.current.currentScrollLeft = cards.scrollLeft;
-    dragAnimationRef.current.targetScrollLeft = cards.scrollLeft;
-    cards.classList.add('is-dragging');
-  };
-
-  const animateDragScroll = () => {
-    const cards = cardsRef.current;
-
-    if (!cards) {
-      dragAnimationRef.current.frameId = null;
-      return;
-    }
-
-    const animation = dragAnimationRef.current;
-    const distance = animation.targetScrollLeft - animation.currentScrollLeft;
-
-    animation.currentScrollLeft += distance * 0.18;
-
-    if (Math.abs(distance) < 0.5) {
-      animation.currentScrollLeft = animation.targetScrollLeft;
-      cards.scrollLeft = animation.currentScrollLeft;
-      animation.frameId = null;
-      return;
-    }
-
-    cards.scrollLeft = animation.currentScrollLeft;
-    animation.frameId = requestAnimationFrame(animateDragScroll);
-  };
-
-  const ensureDragAnimation = () => {
-    if (!dragAnimationRef.current.frameId) {
-      dragAnimationRef.current.frameId = requestAnimationFrame(animateDragScroll);
-    }
-  };
-
-  const handlePointerMove = (event) => {
-    const cards = cardsRef.current;
-    const dragState = dragStateRef.current;
-
-    if (!cards || !dragState.isDragging) {
-      return;
-    }
-
-    const deltaX = event.clientX - dragState.startX;
-
-    if (Math.abs(deltaX) > 5) {
-      dragState.moved = true;
-    }
-
-    if (dragState.moved) {
-      event.preventDefault();
-    }
-
-    dragAnimationRef.current.targetScrollLeft = dragState.startScrollLeft - deltaX;
-    ensureDragAnimation();
-  };
-
-  const endDragging = () => {
-    const cards = cardsRef.current;
-
-    if (!cards || !dragStateRef.current.isDragging) {
-      return;
-    }
-
-    cards.classList.remove('is-dragging');
-    dragStateRef.current.isDragging = false;
-    ensureDragAnimation();
-  };
-
-  const handleCardClick = (student) => {
-    if (dragStateRef.current.moved) {
-      dragStateRef.current.moved = false;
-      return;
-    }
-
-    openModal(student);
   };
 
   return (
@@ -258,16 +163,11 @@ const Letters = () => {
         <ul
           ref={cardsRef}
           className="cards"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={endDragging}
-          onPointerLeave={endDragging}
-          onPointerCancel={endDragging}
         >
           {students.map((student) => (
             <li
               key={student.id}
-              onClick={() => handleCardClick(student)}
+              onClick={() => openModal(student)}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault();

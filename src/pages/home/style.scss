@@ -153,17 +153,12 @@
             padding-top: vw(12px);
             padding-bottom: vw(16px);
             margin-top: vw(-12px);
-            cursor: grab;
             user-select: none;
             -webkit-user-select: none;
             scrollbar-width: none;
             position: relative;
             &::-webkit-scrollbar{
                 display: none;
-            }
-            &.is-dragging{
-                cursor: grabbing;
-                scroll-behavior: auto;
             }
             li{
                 flex: 0 0 vw(333px);
