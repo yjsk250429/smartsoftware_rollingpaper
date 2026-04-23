@@ -32,6 +32,9 @@
     .memorise{
         margin: vw(120px) auto;
         text-align: center;
+        .memorise-reveal{
+            will-change: transform, filter, opacity;
+        }
         h2{
             font-size: vw(40px);
             color: #431D25;
@@ -114,6 +117,9 @@
         .inner{
             margin: vw(120px) auto;
             height: vw(680px);
+        }
+        .letters-reveal{
+            will-change: transform, filter, opacity;
         }
         h2{
             font-family: 'Adamina', serif;
@@ -245,6 +251,9 @@
     .photos{
         .inner{
             height: vw(3700px);
+        }
+        .photos-reveal{
+            will-change: transform, filter, opacity;
         }
         h2{
             font-size: vw(40px);

@@ -24,74 +24,26 @@ html.is-active {
         }
     }
 
-   
-
-    // .nav {
-    //     height: 100px;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     ul {
-    //         display: flex;
-    //         li {
-    //             margin-left: 100px;
-    //             position: relative;
-    //             a {
-    //                 font-size: 18px;
-    //                 font-weight: 500;
-    //                 transition: 0.3s;
-    //                 color: #fff;
-    //                 &:hover {
-    //                     color: tomato;
-    //                 }
-    //             }
-    //             &:last-child span {
-    //                 font-size: 16px;
-    //                 border-radius: 50%;
-    //                 display: block;
-    //                 position: absolute;
-    //                 right: -20px;
-    //                 top: -5px;
-    //                 width: 20px;
-    //                 height: 20px;
-    //                 background-color: #000;
-    //                 color: #fff;
-    //                 text-align: center;
-    //                 line-height: 20px;
-    //             }
-    //         }
-    //     }
-    // }
-
-    .top-menu {
-        position: absolute;
-        right: 0;
-        top: vw(10px);
-        display: flex;
-        li {
-            margin-left: vw(25px);
-            a {
-                font-size: vw(15px);
-            }
+    h2 {
+        a {
+            font-size: vw(20px);
+            line-height: 1.4;
         }
     }
+
+   
+
+
+   
 
     // hader end
 
     @include tablet {
-        background: pink;
         .inner {
-            height: vw(70px);
-            width: 100%;
+       
         }
-        h1 {
-            left: vw(10px);
-            a img {
-                width: vw(40px);
-            }
-        }
-        .nav ul li {
-            margin-left: vw(40px);
+
+        h2 {
             a {
                 font-size: vw(16px);
             }

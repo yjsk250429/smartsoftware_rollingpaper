@@ -9,6 +9,11 @@ const Letters = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const sectionRef = useRef(null);
   const cardsRef = useRef(null);
+  const dragAnimationRef = useRef({
+    frameId: null,
+    currentScrollLeft: 0,
+    targetScrollLeft: 0,
+  });
   const dragStateRef = useRef({
     isDragging: false,
     startX: 0,
@@ -28,6 +33,14 @@ const Letters = () => {
     };
   }, [selectedStudent]);
 
+  useEffect(() => {
+    return () => {
+      if (dragAnimationRef.current.frameId) {
+        cancelAnimationFrame(dragAnimationRef.current.frameId);
+      }
+    };
+  }, []);
+
   useLayoutEffect(() => {
     const section = sectionRef.current;
     const cards = cardsRef.current;
@@ -37,6 +50,7 @@ const Letters = () => {
     }
 
     const cardItems = Array.from(cards.querySelectorAll('li'));
+    const revealItems = Array.from(section.querySelectorAll('.letters-reveal'));
 
     if (!cardItems.length) {
       return undefined;
@@ -72,14 +86,36 @@ const Letters = () => {
 
       setStackedState();
 
+      if (revealItems.length) {
+        gsap.set(revealItems, {
+          y: 48,
+          opacity: 0,
+          filter: 'blur(12px)',
+        });
+
+        gsap.to(revealItems, {
+          y: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+          ease: 'power3.out',
+          duration: 1,
+          stagger: 0.18,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 78%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
+
       const timeline = gsap.timeline({
         defaults: {
           ease: 'none',
         },
         scrollTrigger: {
           trigger: section,
-          start: 'top 80%',
-          end: 'center center',
+          start: 'top 40%',
+          end: 'top 8%',
           scrub: 1,
           invalidateOnRefresh: true,
           onRefreshInit: () => {
@@ -130,7 +166,39 @@ const Letters = () => {
       moved: false,
     };
 
+    dragAnimationRef.current.currentScrollLeft = cards.scrollLeft;
+    dragAnimationRef.current.targetScrollLeft = cards.scrollLeft;
     cards.classList.add('is-dragging');
+  };
+
+  const animateDragScroll = () => {
+    const cards = cardsRef.current;
+
+    if (!cards) {
+      dragAnimationRef.current.frameId = null;
+      return;
+    }
+
+    const animation = dragAnimationRef.current;
+    const distance = animation.targetScrollLeft - animation.currentScrollLeft;
+
+    animation.currentScrollLeft += distance * 0.18;
+
+    if (Math.abs(distance) < 0.5) {
+      animation.currentScrollLeft = animation.targetScrollLeft;
+      cards.scrollLeft = animation.currentScrollLeft;
+      animation.frameId = null;
+      return;
+    }
+
+    cards.scrollLeft = animation.currentScrollLeft;
+    animation.frameId = requestAnimationFrame(animateDragScroll);
+  };
+
+  const ensureDragAnimation = () => {
+    if (!dragAnimationRef.current.frameId) {
+      dragAnimationRef.current.frameId = requestAnimationFrame(animateDragScroll);
+    }
   };
 
   const handlePointerMove = (event) => {
@@ -151,7 +219,8 @@ const Letters = () => {
       event.preventDefault();
     }
 
-    cards.scrollLeft = dragState.startScrollLeft - deltaX;
+    dragAnimationRef.current.targetScrollLeft = dragState.startScrollLeft - deltaX;
+    ensureDragAnimation();
   };
 
   const endDragging = () => {
@@ -163,6 +232,7 @@ const Letters = () => {
 
     cards.classList.remove('is-dragging');
     dragStateRef.current.isDragging = false;
+    ensureDragAnimation();
   };
 
   const handleCardClick = (student) => {
@@ -177,10 +247,13 @@ const Letters = () => {
   return (
     <section ref={sectionRef} className="letters">
       <div className="inner">
-        <h2>Letters From Us</h2>
+        <h2 className="letters-reveal">Letters From Us</h2>
         <p>
-          <span className="click">Click on the card</span>
-          <span>각자의 마음을 담아 전하는 작은 이야기들. 쉽게 꺼내지 못했던 진심을 한 장의 편지에 담았습니다. <br />사진을 눌러, 그 안에 담긴 우리의 기억과 마음을 하나씩 천천히 확인해보세요.</span>
+          <span className="click letters-reveal">Click on the card</span>
+          <span className="letters-reveal">
+            각자의 마음을 담아 전하는 작은 이야기들. 쉽게 꺼내지 못했던 진심을 한 장의 편지에 담았습니다. <br />
+            사진을 눌러, 그 안에 담긴 우리의 기억과 마음을 하나씩 천천히 확인해보세요.
+          </span>
         </p>
         <ul
           ref={cardsRef}
