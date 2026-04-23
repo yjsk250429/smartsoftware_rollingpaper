@@ -7,7 +7,7 @@ html.is-active {
     width: 100%;
 
     .inner {
-        height: 70px;
+        height: vw(70px);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -19,7 +19,7 @@ html.is-active {
         transform: translateX(-50%);
         a {
             img {
-                width: 84px;
+                width: vw(84px);
             }
         }
     }
@@ -66,12 +66,12 @@ html.is-active {
     .top-menu {
         position: absolute;
         right: 0;
-        top: 10px;
+        top: vw(10px);
         display: flex;
         li {
-            margin-left: 25px;
+            margin-left: vw(25px);
             a {
-                font-size: 15px;
+                font-size: vw(15px);
             }
         }
     }
@@ -81,19 +81,19 @@ html.is-active {
     @include tablet {
         background: pink;
         .inner {
-            height: 70px;
+            height: vw(70px);
             width: 100%;
         }
         h1 {
-            left: 10px;
+            left: vw(10px);
             a img {
-                width: 40px;
+                width: vw(40px);
             }
         }
         .nav ul li {
-            margin-left: 40px;
+            margin-left: vw(40px);
             a {
-                font-size: 16px;
+                font-size: vw(16px);
             }
         }
     }

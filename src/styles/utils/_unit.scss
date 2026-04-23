@@ -2,6 +2,7 @@
 
 // 루트 요소 기본 단위 --------------------------------------------------------------- /
 $rootUnit: 16px !default;
+$viewportBase: 1840px !default;
 
 // 단위 제거 함수 ------------------------------------------------------------------ /
 @function removeUnit($value) {
@@ -20,4 +21,11 @@ $rootUnit: 16px !default;
 // px을 em 단위로 변경하는 함수 ------------------------------------------------------- /
 @function em($value, $base: $rootUnit) {
     @return (removeUnit(math.div($value, $base))) * 1em;
+}
+
+@function vw($value, $base: $viewportBase) {
+    @if ($value==auto) {
+        @return auto;
+    }
+    @return math.div(removeUnit($value), removeUnit($base)) * 100vw;
 }

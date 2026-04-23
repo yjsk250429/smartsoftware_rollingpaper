@@ -5,7 +5,7 @@
     width: 100%;
 
     .inner {
-        height: 270px;
+        height: vw(270px);
             color: #fff;
             text-align: center;
             display: flex;
@@ -14,19 +14,21 @@
             align-items: center;
     }
     strong {
-        font-size: 32px;
+        font-size: vw(32px);
     }
     .adamina-title {
         font-family: 'Adamina', serif;
         font-weight: 400;
     }
     p{
-        margin-top: 14px;
-        font-size: 18px;
+        margin-top: vw(14px);
+        font-size: vw(18px);
     }
     span{
         position: absolute;
-        bottom: 10px;
+        bottom: vw(10px);
+        font-size: vw(14px);
+        line-height: 1.4;
         font-weight: 300;
         opacity: 0.8;
     }

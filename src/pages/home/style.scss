@@ -1,12 +1,16 @@
+@use '../../styles/utils' as *;
+
 .home{
     // 배너영역--------------------
     .banner{
         .inner{
             background-image: url('/images/bg01.jpg');
-            background-position: 0 -40px;
-            height: 820px;
-            border-radius: 24px;
-            padding-left: 83px;
+            background-position: 0 vw(-40px);
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: vw(820px);
+            border-radius: vw(24px);
+            padding-left: vw(83px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -14,85 +18,92 @@
         .adamina-title{
             font-family: 'Adamina', serif ;
             font-weight: 400;
-            font-size: 40px;
+            font-size: vw(40px);
             color: #431D25;
         }
         p{
-            margin-top: 12px;
+            margin-top: vw(12px);
             color: #3a3a3a;
-            font-size: 18px;
+            font-size: vw(18px);
         }
 
     }
      // 중간 텍스트 영역--------------------
     .memorise{
-        margin: 120px auto;
+        margin: vw(120px) auto;
         text-align: center;
         h2{
-            font-size: 40px;
+            font-size: vw(40px);
             color: #431D25;
-            margin-bottom: 24px;
+            margin-bottom: vw(24px);
              font-family: 'Adamina', serif ;
         }
         p{
-            font-size: 20px;
+            font-size: vw(20px);
             color: #3a3a3a;
             &.t1{
-                margin-bottom: 12px;
+                margin-bottom: vw(12px);
             }
         }
     }
      // 교수님 영역--------------------
     .teacher{
         background-image: url('/images/bg02.jpg');
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: cover;
         .inner{
-            height: 726px;
+            height: vw(726px);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 64px;
+            gap: vw(64px);
         }
         .left{
             .img-wrap{
-                width: 480px;
-                height: 600px;
-                border-radius: 24px;
+                width: vw(480px);
+                height: vw(600px);
+                border-radius: vw(24px);
                 overflow: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 img{
-
+                    height: 100%;
                 }
             }
         }
         .right{
             em{
-                font-size: 20px;
+                font-size: vw(20px);
             }
             strong{
                 display: block;
-                font-size: 40px;
-                margin-top: 20px;
-                margin-bottom: 16px;
+                font-size: vw(40px);
+                margin-top: vw(20px);
+                margin-bottom: vw(16px);
                 font-weight: 500;
                 span{
-                    font-size: 16px;
-                    padding-left: 10px;
+                    font-size: vw(16px);
+                    padding-left: vw(10px);
                 }
             }
             p{
-                margin-bottom: 40px;
+                font-size: vw(18px);
+                line-height: 1.6;
+                margin-bottom: vw(40px);
                 color: #3a3a3a;
             }
             .tags{
                 display: flex;
-                gap: 8px;
+                gap: vw(8px);
                 li{
+                    font-size: vw(16px);
+                    line-height: 1.4;
                     background: #CE666D;
                     color: #fff;
-                    padding: 8px 16px;
-                    border-radius: 50px;
+                    padding: vw(8px) vw(16px);
+                    border-radius: vw(50px);
                     font-weight: 200;
                 }
             }
@@ -101,13 +112,13 @@
     // 편지 영역--------------------
     .letters{
         .inner{
-            margin: 120px auto;
-            height: 700px;
+            margin: vw(120px) auto;
+            height: vw(680px);
         }
         h2{
             font-family: 'Adamina', serif;
-            font-size: 40px;
-            margin-bottom: 24px;
+            font-size: vw(40px);
+            margin-bottom: vw(24px);
         }
         p{
             display: flex;
@@ -115,43 +126,65 @@
             align-items: center;
             span{
                 display: block;
+                font-size: vw(18px);
+                line-height: 1.6;
                 color: #3a3a3a;
-                margin-bottom: 60px;
+                margin-bottom: vw(60px);
                 &.click{
                     color: #fff;
                     background: #CE666D;
-                    padding: 8px 16px;
-                    border-radius: 100px;
+                    padding: vw(8px) vw(16px);
+                    border-radius: vw(100px);
                     font-weight: 300;
                 }
             }
         }
         .cards{
             display: flex;
-            gap: 36px;
+            gap: vw(36px);
             overflow-x: auto;
-            overflow-y: hidden;
             flex-wrap: nowrap;
-            padding-bottom: 16px;
+            padding-top: vw(12px);
+            padding-bottom: vw(16px);
+            margin-top: vw(-12px);
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            scrollbar-width: none;
+            position: relative;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+            &.is-dragging{
+                cursor: grabbing;
+                scroll-behavior: auto;
+            }
             li{
-                flex: 0 0 auto;
+                flex: 0 0 vw(333px);
+                width: vw(333px);
                 cursor: pointer;
                 list-style: none;
-                border-radius: 24px;
+                border-radius: vw(24px);
                 overflow: hidden;
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
+                user-select: none;
+                -webkit-user-drag: none;
+                transform-origin: center center;
+                will-change: transform, filter, opacity;
                 &:hover{
-                    transform: translateY(-6px);
-                    box-shadow: 0 18px 40px rgba(67, 29, 37, 0.18);
+                    transform: translateY(vw(-6px));
+                    box-shadow: 0 vw(10px) vw(20px) rgba(67, 29, 37, 0.18);
                 }
                 &:focus-visible{
-                    outline: 2px solid #CE666D;
-                    outline-offset: 4px;
+                    outline: vw(2px) solid #CE666D;
+                    outline-offset: vw(4px);
                 }
                 img{
                     display: block;
-                    width: auto;
+                    width: 100%;
                     height: auto;
+                    pointer-events: none;
+                    user-select: none;
                 }
             }
 
@@ -164,32 +197,32 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 24px;
+            padding: vw(24px);
         }
         .letters-modal{
             position: relative;
-            width: 1015px;
-            height: 675px;
-            max-width: calc(100vw - 48px);
-            max-height: calc(100vh - 48px);
-            border-radius: 24px;
+            width: vw(1015px);
+            height: vw(675px);
+            max-width: calc(100vw - #{vw(48px)});
+            max-height: calc(100vh - #{vw(48px)});
+            border-radius: vw(24px);
             background-image: url('/images/bg03.jpg');
             background-size: cover;
             background-position: center;
             overflow: hidden;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 vw(24px) vw(80px) rgba(0, 0, 0, 0.22);
         }
         .letters-modal-close{
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
+            top: vw(20px);
+            right: vw(20px);
+            width: vw(40px);
+            height: vw(40px);
             border: 0;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.85);
             color: #431D25;
-            font-size: 28px;
+            font-size: vw(28px);
             line-height: 1;
             cursor: pointer;
         }
@@ -199,9 +232,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 96px 110px;
+            padding: vw(96px) vw(110px);
             p{
-                font-size: 28px;
+                font-size: vw(28px);
                 line-height: 1.9;
                 color: #431D25;
                 text-align: center;
@@ -211,16 +244,18 @@
     // 갤러리 영역--------------------
     .photos{
         .inner{
-            height: 3700px;
+            height: vw(3700px);
         }
         h2{
-            font-size: 40px;
+            font-size: vw(40px);
             font-family: 'Adamina', serif;
-            margin-bottom: 16px;
+            margin-bottom: vw(16px);
         }
         p{
+            font-size: vw(18px);
+            line-height: 1.6;
             color: #3a3a3a;
-            margin-bottom: 60px;
+            margin-bottom: vw(60px);
         }
     }
 
