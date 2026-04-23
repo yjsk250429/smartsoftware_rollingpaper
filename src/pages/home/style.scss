@@ -179,7 +179,7 @@
                 will-change: transform, filter, opacity;
                 &:hover{
                     transform: translateY(vw(-6px));
-                    box-shadow: 0 vw(10px) vw(20px) rgba(67, 29, 37, 0.18);
+                    box-shadow: 0 vw(5px) vw(10px) rgba(67, 29, 37, 0.18);
                 }
                 &:focus-visible{
                     outline: vw(2px) solid #CE666D;
@@ -207,12 +207,15 @@
         }
         .letters-modal{
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: vw(1015px);
             height: vw(675px);
             max-width: calc(100vw - #{vw(48px)});
             max-height: calc(100vh - #{vw(48px)});
             border-radius: vw(24px);
-            background-image: url('/images/bg03.jpg');
+            background-image: url('/images/bg04.jpg');
             background-size: cover;
             background-position: center;
             overflow: hidden;
@@ -220,30 +223,50 @@
         }
         .letters-modal-close{
             position: absolute;
-            top: vw(20px);
-            right: vw(20px);
-            width: vw(40px);
+            bottom: vw(40px);
+            width: vw(105px);
             height: vw(40px);
-            border: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.85);
-            color: #431D25;
-            font-size: vw(28px);
+            border: none;
+            background:none;
+            color: #C2B9BA;
+            font-size: vw(24px);
+            font-weight: 600;
             line-height: 1;
             cursor: pointer;
+            &::after{
+                content: "";
+                display: block;
+                width: vw(100px);
+                height: vw(3px);
+                background: #585151;
+                border-radius: vw(50px);
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 0;
+
+            }
         }
         .letters-modal-content{
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: 90%;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
             padding: vw(96px) vw(110px);
             p{
-                font-size: vw(28px);
+                font-size: vw(24px);
+                font-weight: 600;
                 line-height: 1.9;
                 color: #431D25;
-                text-align: center;
+                text-align: left;
+            }
+            em{
+                display: block;
+                font-size: vw(24px);
+                font-weight: 600;
+                color: #431D25;
             }
         }
     }

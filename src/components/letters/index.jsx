@@ -295,10 +295,11 @@ const Letters = () => {
               onClick={closeModal}
               aria-label="Close modal"
             >
-              X
+              CLOSE
             </button>
             <div className="letters-modal-content">
               <p>{selectedStudent.letter}</p>
+              <em>{selectedStudent.name} 올림</em>
             </div>
           </div>
         </div>
