@@ -1,0 +1,11 @@
+@use './../utils' as *;
+
+.inner {
+    width: vw(1780px);
+    margin: auto;
+    position: relative;
+    box-sizing: border-box;
+    @include tablet {
+        width: 95%;
+    }
+}

@@ -1,0 +1,84 @@
+@use './../utils' as *;
+
+html.is-active {
+    overflow-y: hidden;
+}
+#header {
+    width: 100%;
+
+    .inner {
+        height: vw(70px);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    h1 {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        a {
+            img {
+                width: vw(84px);
+            }
+        }
+    }
+
+    h2 {
+        a {
+            font-size: vw(20px);
+            line-height: 1.4;
+        }
+
+        .mobile-label {
+            display: none;
+        }
+    }
+
+    // hader end
+
+    @include tablet {
+        .inner {
+        }
+
+        h2 {
+            a {
+                font-size: vw(16px);
+            }
+        }
+    }
+} //header end
+
+@media (max-width: 480px) {
+    #header {
+        .inner {
+            height: 36px;
+        }
+
+        h1 {
+            a {
+                img {
+                    width: 40px;
+                }
+            }
+        }
+
+        h2 {
+            a {
+                font-size: 16px;
+                font-weight: 700;
+                font-family: 'Adamina', serif;
+                color: #431d25;
+            }
+
+            .desktop-label {
+                display: none;
+            }
+
+            .mobile-label {
+                display: inline;
+                font-family: 'Brygada 1918', serif;
+            }
+        }
+    }
+}
