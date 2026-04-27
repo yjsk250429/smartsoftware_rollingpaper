@@ -29,6 +29,10 @@ html.is-active {
             font-size: vw(20px);
             line-height: 1.4;
         }
+
+        .mobile-label {
+            display: none;
+        }
     }
 
    
@@ -50,3 +54,36 @@ html.is-active {
         }
     }
 } //header end
+
+@media (max-width: 384px) {
+    #header {
+        .inner {
+            height: 36px;
+        }
+
+        h1 {
+            a {
+                img {
+                    width: 40px;
+                }
+            }
+        }
+
+        h2 {
+            a {
+                font-size: 16px;
+                font-weight: 700;
+                font-family: 'Adamina', serif ;
+                color: #431D25;
+            }
+
+            .desktop-label {
+                display: none;
+            }
+
+            .mobile-label {
+                display: inline;
+            }
+        }
+    }
+}

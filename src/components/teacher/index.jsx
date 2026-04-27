@@ -93,6 +93,15 @@ const Teacher = () => {
         </span>
       ))}
     </div>
+      <div className="memorise-m">
+        <h2 className="memorise-reveal">Memorise</h2>
+        <p className="t1 memorise-reveal">
+          소중한 순간들을 담은 특별한 공간입니다.
+        </p>
+        <p className="t2 memorise-reveal">
+          “시간이 지나도 변하지 않는 아름다운 추억들"
+        </p>
+      </div>
     <div className="inner">
       <div className="left">
         <div className="img-wrap teacher-reveal">

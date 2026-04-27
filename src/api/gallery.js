@@ -1,7 +1,7 @@
 const galleryPhotos = [
   { id: 1, className: 'large large-top-left', src: '/images/gallery/3.jpg', alt: 'Gallery photo 3' },
   { id: 2, className: 'small small-top-center', src: '/images/gallery/2.jpg', alt: 'Gallery photo 2' },
-  { id: 3, className: 'small small-top-right', src: '/images/gallery/1.jpg', alt: 'Gallery photo 1' },
+  { id: 3, className: 'small small-top-right', src: '/images/gallery/1.png', alt: 'Gallery photo 1' },
   { id: 4, className: 'wide wide-center', src: '/images/gallery/14.jpg', alt: 'Gallery photo 14' },
   { id: 5, className: 'small small-mid-left', src: '/images/gallery/4.jpg', alt: 'Gallery photo 4' },
   { id: 6, className: 'small small-mid-right', src: '/images/gallery/6.jpg', alt: 'Gallery photo 6' },
