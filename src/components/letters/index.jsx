@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import students from '../../api/students';
@@ -9,6 +10,9 @@ const Letters = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const sectionRef = useRef(null);
   const cardsRef = useRef(null);
+  const modalOverlayRef = useRef(null);
+  const modalRef = useRef(null);
+  const isClosingRef = useRef(false);
 
   useEffect(() => {
     if (selectedStudent) {
@@ -141,51 +145,121 @@ const Letters = () => {
     return () => ctx.revert();
   }, []);
 
+  useLayoutEffect(() => {
+    if (!selectedStudent || !modalOverlayRef.current || !modalRef.current) {
+      return undefined;
+    }
+
+    isClosingRef.current = false;
+
+    const ctx = gsap.context(() => {
+      gsap.set(modalOverlayRef.current, {
+        opacity: 0,
+      });
+
+      gsap.set(modalRef.current, {
+        opacity: 0,
+        y: -24,
+      });
+
+      const timeline = gsap.timeline({
+        defaults: {
+          ease: 'power3.out',
+        },
+      });
+
+      timeline.to(modalOverlayRef.current, {
+        opacity: 1,
+        duration: 0.24,
+      });
+
+      timeline.to(modalRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+      }, 0);
+    });
+
+    return () => ctx.revert();
+  }, [selectedStudent]);
+
   const openModal = (student) => {
+    if (isClosingRef.current) {
+      return;
+    }
+
     setSelectedStudent(student);
   };
 
   const closeModal = () => {
-    setSelectedStudent(null);
+    if (!selectedStudent || isClosingRef.current) {
+      return;
+    }
+
+    isClosingRef.current = true;
+
+    const timeline = gsap.timeline({
+      defaults: {
+        ease: 'power3.in',
+      },
+      onComplete: () => {
+        isClosingRef.current = false;
+        setSelectedStudent(null);
+      },
+    });
+
+    timeline.to(modalOverlayRef.current, {
+      opacity: 0,
+      duration: 0.2,
+    });
+
+    timeline.to(modalRef.current, {
+      opacity: 0,
+      y: -24,
+      duration: 0.24,
+    }, 0);
   };
 
   return (
-    <section ref={sectionRef} className="letters">
-      <div className="inner">
-        <h2 className="letters-reveal">Letters From Us</h2>
-        <p>
-          <span className="click letters-reveal">Click on the card</span>
-          <span className="letters-reveal">
-            각자의 마음을 담아 전하는 작은 이야기들. 쉽게 꺼내지 못했던 진심을 한 장의 편지에 담았습니다. <br />
-            사진을 눌러, 그 안에 담긴 우리의 기억과 마음을 하나씩 천천히 확인해보세요.
-          </span>
-        </p>
-        <ul
-          ref={cardsRef}
-          className="cards"
-        >
-          {students.map((student) => (
-            <li
-              key={student.id}
-              onClick={() => openModal(student)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  openModal(student);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-            >
-              <img src={student.cardImg} alt={student.name} />
-            </li>
-          ))}
-        </ul>
-      </div>
+    <>
+      <section ref={sectionRef} className="letters">
+        <div className="inner">
+          <h2 className="letters-reveal">Letters From Us</h2>
+          <p>
+            <span className="click letters-reveal">Click on the card</span>
+            <span className="letters-reveal">
+             각자의 마음을 담아 전하는 작은 이야기들. 쉽게 꺼내지 못했던 진심을 한 장의 편지에 담았습니다.<br />
+              사진을 눌러, 그 안에 담긴 우리의 기억과 마음을 하나씩 천천히 확인해보세요.
+            </span>
+          </p>
+          <ul
+            ref={cardsRef}
+            className="cards"
+          >
+            {students.map((student) => (
+              <li key={student.id}>
+                <button
+                  type="button"
+                  className="card-button"
+                  onClick={() => openModal(student)}
+                  aria-label={`Open letter from ${student.name}`}
+                >
+                  <img src={student.cardImg} alt={student.name} />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      {selectedStudent && (
-        <div className="letters-modal-overlay" onClick={closeModal}>
+      {selectedStudent && createPortal(
+        <div
+          ref={modalOverlayRef}
+          className="letters-modal-overlay"
+          onClick={closeModal}
+        >
           <div
+            ref={modalRef}
             className="letters-modal"
             onClick={(event) => event.stopPropagation()}
           >
@@ -199,12 +273,13 @@ const Letters = () => {
             </button>
             <div className="letters-modal-content">
               <p>{selectedStudent.letter}</p>
-              <em>{selectedStudent.name} 올림</em>
+              <em>{selectedStudent.name}</em>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
-    </section>
+    </>
   );
 };
 

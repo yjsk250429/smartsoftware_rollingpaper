@@ -1,7 +1,40 @@
 @use '../../styles/utils' as *;
 
 .home{
-    // 배너영역--------------------
+    .top-button{
+        position: fixed;
+        right: vw(24px);
+        bottom: vw(24px);
+        width: 30px;
+        height: 30px;
+        border: 0;
+        border-radius: 50%;
+        background: #CE666D;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 vw(6px) vw(16px) rgba(67, 29, 37, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(vw(10px));
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        z-index: 100;
+
+        &.is-visible{
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
+    .top-button-arrow{
+        width: 8px;
+        height: 8px;
+        border-top: 2px solid #fff;
+        border-left: 2px solid #fff;
+        transform: rotate(45deg) translate(1px, 1px);
+    }
+    // 諛곕꼫?곸뿭--------------------
     .banner{
         .inner{
             background-image: url('/images/bg01.jpg');
@@ -20,6 +53,23 @@
             font-weight: 400;
             font-size: vw(40px);
             color: #431D25;
+
+            .typing-text{
+                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 0;
+                vertical-align: top;
+                border-right: 2px solid #431D25;
+                animation:
+                    banner-typing 5.2s steps(13, end) infinite,
+                    banner-caret 0.8s step-end infinite;
+            }
+            .typing-text-inner{
+                display: inline-block;
+                white-space: nowrap;
+                padding-right: 1px;
+            }
         }
         p{
             margin-top: vw(12px);
@@ -28,7 +78,7 @@
         }
 
     }
-     // 중간 텍스트 영역--------------------
+     // 以묎컙 ?띿뒪???곸뿭--------------------
     .memorise{
         margin: vw(120px) auto;
         text-align: center;
@@ -49,13 +99,51 @@
             }
         }
     }
-     // 교수님 영역--------------------
+     // 援먯닔???곸뿭--------------------
     .teacher{
+        position: relative;
+        overflow: hidden;
         background-image: url('/images/bg02.jpg');
         background-repeat: no-repeat;
         background-position: 0 0;
         background-size: cover;
+        .teacher-petals{
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .teacher-petal{
+            position: absolute;
+            top: -12%;
+            left: var(--petal-left);
+            width: var(--petal-size);
+            height: var(--petal-size);
+            opacity: var(--petal-opacity);
+            will-change: transform;
+            animation: teacher-petal-fall var(--petal-duration) cubic-bezier(0.32, 0, 0.22, 1) infinite;
+            animation-delay: var(--petal-delay);
+
+            .teacher-petal-body{
+                display: block;
+                width: 100%;
+                height: 100%;
+                will-change: transform;
+                animation:
+                    teacher-petal-sway var(--petal-sway-duration) ease-in-out infinite alternate,
+                    teacher-petal-spin var(--petal-rotate-duration) ease-in-out infinite alternate;
+            }
+
+            img{
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
         .inner{
+            position: relative;
+            z-index: 2;
             height: vw(726px);
             display: flex;
             justify-content: center;
@@ -77,6 +165,9 @@
             }
         }
         .right{
+            .teacher-reveal{
+                will-change: transform, filter, opacity;
+            }
             em{
                 font-size: vw(20px);
             }
@@ -85,7 +176,7 @@
                 font-size: vw(40px);
                 margin-top: vw(20px);
                 margin-bottom: vw(16px);
-                font-weight: 500;
+                font-weight: 600;
                 span{
                     font-size: vw(16px);
                     padding-left: vw(10px);
@@ -96,6 +187,17 @@
                 line-height: 1.6;
                 margin-bottom: vw(40px);
                 color: #3a3a3a;
+                ul{
+                    li{
+                        display: flex;
+                        justify-content: flex-start;
+                        gap: vw(10px);
+                        b{
+                            font-weight: 600;
+                            display: block;
+                        }
+                    }
+                }
             }
             .tags{
                 display: flex;
@@ -112,7 +214,7 @@
             }
         }
     }
-    // 편지 영역--------------------
+    // ?몄? ?곸뿭--------------------
     .letters{
         .inner{
             margin: vw(120px) auto;
@@ -163,7 +265,6 @@
             li{
                 flex: 0 0 vw(333px);
                 width: vw(333px);
-                cursor: pointer;
                 list-style: none;
                 border-radius: vw(24px);
                 overflow: hidden;
@@ -176,7 +277,15 @@
                     transform: translateY(vw(-6px));
                     box-shadow: 0 vw(5px) vw(10px) rgba(67, 29, 37, 0.18);
                 }
-                &:focus-visible{
+                .card-button{
+                    display: block;
+                    width: 100%;
+                    padding: 0;
+                    border: 0;
+                    background: none;
+                    cursor: pointer;
+                }
+                .card-button:focus-visible{
                     outline: vw(2px) solid #CE666D;
                     outline-offset: vw(4px);
                 }
@@ -266,7 +375,7 @@
             }
         }
     }
-    // 갤러리 영역--------------------
+    // 媛ㅻ윭由??곸뿭--------------------
     .photos{
         overflow-x: clip;
         .inner{
@@ -370,4 +479,145 @@
         }
     }
 
+}
+
+.letters-modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: vw(24px);
+}
+
+.letters-modal{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: vw(1015px);
+    height: vw(675px);
+    max-width: calc(100vw - #{vw(48px)});
+    max-height: calc(100vh - #{vw(48px)});
+    border-radius: vw(24px);
+    background-image: url('/images/bg04.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    box-shadow: 0 vw(24px) vw(80px) rgba(0, 0, 0, 0.22);
+}
+
+.letters-modal-close{
+    position: absolute;
+    bottom: vw(40px);
+    width: vw(105px);
+    height: vw(40px);
+    border: none;
+    background: none;
+    color: #C2B9BA;
+    font-size: vw(24px);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+
+    &::after{
+        content: "";
+        display: block;
+        width: vw(100px);
+        height: vw(3px);
+        background: #585151;
+        border-radius: vw(50px);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+    }
+}
+
+.letters-modal-content{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: vw(96px) vw(110px);
+
+    p{
+        font-size: vw(24px);
+        font-weight: 600;
+        line-height: 1.9;
+        color: #431D25;
+        text-align: left;
+        white-space: pre-line;
+    }
+
+    em{
+        display: block;
+        font-size: vw(24px);
+        font-weight: 600;
+        color: #431D25;
+    }
+}
+
+@keyframes banner-typing{
+    0%{
+        width: 0;
+    }
+    38%{
+        width: 10.2ch;
+    }
+    82%{
+        width: 10.2ch;
+    }
+    100%{
+        width: 0;
+    }
+}
+
+@keyframes banner-caret{
+    0%, 49%{
+        border-right-color: #431D25;
+    }
+    50%, 100%{
+        border-right-color: transparent;
+    }
+}
+
+@keyframes teacher-petal-fall{
+    0%{
+        transform: translate3d(0, -10%, 0);
+    }
+    100%{
+        transform: translate3d(var(--petal-diagonal), #{vw(900px)}, 0);
+    }
+}
+
+@keyframes teacher-petal-sway{
+    0%{
+        transform: translate3d(0, 0, 0);
+    }
+    30%{
+        transform: translate3d(calc(var(--petal-drift) * 0.45), 0, 0);
+    }
+    65%{
+        transform: translate3d(calc(var(--petal-drift) * -0.35), 0, 0);
+    }
+    100%{
+        transform: translate3d(var(--petal-drift), 0, 0);
+    }
+}
+
+@keyframes teacher-petal-spin{
+    0%{
+        transform: rotate(-10deg) scale(0.92);
+    }
+    50%{
+        transform: rotate(8deg) scale(1);
+    }
+    100%{
+        transform: rotate(18deg) scale(1.05);
+    }
 }

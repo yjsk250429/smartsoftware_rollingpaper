@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Letters, Photos, Teacher } from '../../components';
@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const memoriseRef = useRef(null);
+  const [showTopButton, setShowTopButton] = useState(false);
 
   useLayoutEffect(() => {
     const memorise = memoriseRef.current;
@@ -48,6 +49,24 @@ const Home = () => {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTopButton(window.scrollY > 200);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleTopClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <main className="home">
       <Banner />
@@ -63,6 +82,14 @@ const Home = () => {
       <Teacher />
       <Letters />
       <Photos />
+      <button
+        type="button"
+        className={`top-button${showTopButton ? ' is-visible' : ''}`}
+        onClick={handleTopClick}
+        aria-label="Scroll to top"
+      >
+        <span className="top-button-arrow" aria-hidden="true" />
+      </button>
     </main>
   );
 };
