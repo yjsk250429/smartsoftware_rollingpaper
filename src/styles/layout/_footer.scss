@@ -1,0 +1,60 @@
+@use './../utils' as *;
+
+#footer {
+    background-color: #C2B9BA;
+    width: 100%;
+
+    .inner {
+        height: vw(270px);
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    }
+    strong {
+        font-size: vw(32px);
+    }
+    .adamina-title {
+        font-family: 'Adamina', serif;
+        font-weight: 400;
+    }
+    p{
+        margin-top: vw(14px);
+        font-size: vw(18px);
+        font-weight: 200;
+    }
+    span{
+        position: absolute;
+        bottom: vw(10px);
+        font-size: vw(14px);
+        line-height: 1.4;
+        font-weight: 300;
+        opacity: 0.8;
+    }
+}
+
+@media (max-width: 384px) {
+    #footer {
+        background-color:#CE666D;
+        .inner {
+            height: 92px;
+        }
+
+        strong {
+        }
+
+        .adamina-title {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+
+        span {
+            font-size: 8px;
+        }
+    }
+}
