@@ -217,8 +217,12 @@
     // ?몄? ?곸뿭--------------------
     .letters{
         .inner{
-            margin: vw(120px) auto;
-            height: vw(680px);
+            margin: 0 auto;
+            min-height: 100vh;
+            padding: vw(120px) 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .letters-reveal{
             will-change: transform, filter, opacity;

@@ -129,8 +129,8 @@ const Letters = () => {
         scrollLeft: () => getMaxScroll(),
         ease: 'none',
         scrollTrigger: {
-          trigger: cards,
-          start: 'center center',
+          trigger: section,
+          start: 'top top',
           end: () => `+=${getMaxScroll()}`,
           scrub: 1,
           pin: section,
