@@ -104,9 +104,18 @@ const Teacher = () => {
       </div>
     <div className="inner">
       <div className="left">
+        <svg className="teacher-name-arc" viewBox="0 0 167 78" aria-hidden="true">
+          <path id="teacherNameArc" d="M 18 60 A 100 100 0 0 1 149 60" />
+          <text>
+            <textPath href="#teacherNameArc" startOffset="50%" textAnchor="middle">
+              Prof. Yoon Ji Hyun
+            </textPath>
+          </text>
+        </svg>
         <div className="img-wrap teacher-reveal">
           <img src="/images/yoont.jpg" alt="yoonjihyun" />
         </div>
+        <strong className='m-show'><span>윤 지 현</span> 교수님</strong>
       </div>
       <div className="right">
         <em className="teacher-reveal">About Our Teacher</em>

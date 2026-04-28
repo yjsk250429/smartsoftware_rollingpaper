@@ -16,7 +16,8 @@ html.is-active {
     h1 {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
         a {
             img {
                 width: vw(84px);
@@ -51,11 +52,16 @@ html.is-active {
 
 @media (max-width: 480px) {
     #header {
+        width: auto;
+        margin-left: 16px;
+        margin-right: 16px;
+
         .inner {
             height: 36px;
         }
 
         h1 {
+            top: 22px;
             a {
                 img {
                     width: 40px;

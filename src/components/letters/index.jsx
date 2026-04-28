@@ -127,20 +127,24 @@ const Letters = () => {
 
             const getMaxScroll = () => Math.max(cards.scrollWidth - cards.clientWidth, 0);
 
-            gsap.to(cards, {
-                scrollLeft: () => getMaxScroll(),
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top top',
-                    end: () => `+=${getMaxScroll()}`,
-                    scrub: 1,
-                    pin: section,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                    onRefreshInit: resetCardsScroll,
-                    onLeaveBack: resetCardsScroll,
-                },
+            const media = gsap.matchMedia();
+
+            media.add('(min-width: 481px)', () => {
+                gsap.to(cards, {
+                    scrollLeft: () => getMaxScroll(),
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top top',
+                        end: () => `+=${getMaxScroll()}`,
+                        scrub: 1,
+                        pin: section,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                        onRefreshInit: resetCardsScroll,
+                        onLeaveBack: resetCardsScroll,
+                    },
+                });
             });
         }, section);
 
