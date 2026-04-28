@@ -16,11 +16,13 @@ const Photos = () => {
         }
 
         const textItems = Array.from(section.querySelectorAll('.photos-reveal'));
-        const frameItems = Array.from(section.querySelectorAll('.photo-frame'));
+        const frameItems = Array.from(section.querySelectorAll('.photos-collage--desktop .photo-frame'));
 
         if (!textItems.length && !frameItems.length) {
             return undefined;
         }
+
+        let media;
 
         const ctx = gsap.context(() => {
             if (textItems.length) {
@@ -90,9 +92,78 @@ const Photos = () => {
                     });
                 });
             }
+
+            media = gsap.matchMedia();
+
+            media.add('(max-width: 480px)', () => {
+                const mobileFrameItems = Array.from(
+                    section.querySelectorAll('.photos-marquee .photo-frame')
+                );
+                const marquee = section.querySelector('.photos-marquee');
+
+                if (!mobileFrameItems.length || !marquee) {
+                    return undefined;
+                }
+
+                const getScaleToCloseGap = () => {
+                    const firstFrame = mobileFrameItems[0];
+                    const frameWidth = firstFrame.getBoundingClientRect().width;
+                    const frameParent = firstFrame.parentElement;
+                    const parentStyles = window.getComputedStyle(frameParent);
+                    const gap = parseFloat(parentStyles.columnGap || parentStyles.gap) || 0;
+
+                    if (!frameWidth || !gap) {
+                        return 1.08;
+                    }
+
+                    return 1 + ((gap + 3) * 2) / frameWidth;
+                };
+
+                gsap.set(mobileFrameItems, {
+                    scale: 1,
+                    transformOrigin: 'center center',
+                    borderRadius: '8px',
+                    clipPath: 'inset(0 round 8px)',
+                    overflow: 'hidden',
+                    force3D: true,
+                });
+
+                gsap.set(section.querySelectorAll('.photos-marquee .photo-frame img'), {
+                    scale: 1,
+                    transform: 'none',
+                    transformOrigin: 'center center',
+                });
+
+                gsap.to(mobileFrameItems, {
+                    keyframes: [
+                        {
+                            scale: getScaleToCloseGap,
+                            duration: 0.46,
+                            ease: 'power2.out',
+                        },
+                        {
+                            scale: 1,
+                            duration: 0.52,
+                            ease: 'power2.out',
+                        },
+                    ],
+                    stagger: 0.035,
+                    scrollTrigger: {
+                        trigger: marquee,
+                        start: 'top 88%',
+                        toggleActions: 'play none none reverse',
+                        invalidateOnRefresh: true,
+                    },
+                });
+
+                return undefined;
+            });
         }, section);
 
-        return () => ctx.revert();
+        return () => {
+            media?.revert();
+            ctx.revert();
+        };
     }, []);
 
     return (
@@ -107,12 +178,29 @@ const Photos = () => {
                     </p>
                 </div>
 
-                <div className="photos-collage" aria-label="Photo collage placeholders">
+                <div className="photos-collage photos-collage--desktop" aria-label="Photo collage placeholders">
                     {galleryPhotos.map((photo) => (
                         <div key={photo.id} className={`photo-frame ${photo.className}`}>
                             <img src={photo.src} alt={photo.alt} />
                         </div>
                     ))}
+                </div>
+
+                <div className="photos-marquee" aria-hidden="true">
+                    <div className="photos-marquee-track">
+                        {[0, 1].map((setIndex) => (
+                            <div key={setIndex} className="photos-marquee-set">
+                                {galleryPhotos.map((photo) => (
+                                    <div
+                                        key={`${photo.id}-${setIndex}`}
+                                        className={`photo-frame ${photo.className}`}
+                                    >
+                                        <img src={photo.src} alt="" />
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

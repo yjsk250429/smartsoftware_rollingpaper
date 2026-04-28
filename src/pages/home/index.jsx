@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Letters, Photos, Teacher } from '../../components';
+import { Letters, MLetters, Photos, Teacher } from '../../components';
 import Banner from '../../components/banner';
 import './style.scss';
 
@@ -77,6 +77,7 @@ const Home = () => {
             </div>
             <Teacher />
             <Letters />
+            <MLetters />
             <Photos />
             <button
                 type="button"
