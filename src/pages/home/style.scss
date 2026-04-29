@@ -991,26 +991,33 @@
       height: 10px;
     }
     .banner {
-      height: 400px;
+      height: 600px;
       background-image: url("/images/bg01-m.jpg");
-      background-position: -40px -180px;
+      background-position: -40px -60px;
       background-repeat: no-repeat;
       background-size: 115%;
       .inner {
         background: none;
         justify-content: start;
-        padding-top: 20px;
+        padding-top: 40px;
         padding-left: 0;
       }
       .adamina-title {
-        display: none;
+        // display: none;
+
+        .typing-text {
+          width: auto;
+          border-right: 0;
+          animation: none;
+        }
+
         span {
-          font-size: 20px;
+          font-size: 24px;
         }
       }
       p {
-        font-size: 12px;
-        margin-top: 16px;
+        font-size: 14px;
+        margin-top: 40px;
 
         .mobile-hide-br {
           display: none;
