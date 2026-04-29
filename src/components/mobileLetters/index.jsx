@@ -166,16 +166,30 @@ const MLetters = () => {
                         </span>
                     </p>
 
-  <Swiper
+  <div className="mobile-letters-slider letters-reveal">
+      <button
+        type="button"
+        className="mobile-letters-nav mobile-letters-nav--prev"
+        aria-label="Previous letter"
+      />
+      <button
+        type="button"
+        className="mobile-letters-nav mobile-letters-nav--next"
+        aria-label="Next letter"
+      />
+      <Swiper
         loop={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
         }}
         pagination={{ clickable: true }}
-        navigation={true}
+        navigation={{
+          prevEl: '.mobile-letters-nav--prev',
+          nextEl: '.mobile-letters-nav--next',
+        }}
         modules={[Autoplay, Navigation, Pagination]}
-        className="mySwiper letters-reveal"
+        className="mySwiper"
       >
         {students.map((student) => (
           <SwiperSlide key={student.id}>
@@ -190,6 +204,7 @@ const MLetters = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      </div>
 
 
                      <span className="click letters-reveal">Click on the card</span>

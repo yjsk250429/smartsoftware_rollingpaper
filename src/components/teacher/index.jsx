@@ -51,6 +51,8 @@ const Teacher = () => {
       return undefined;
     }
 
+    let sideTextReveal;
+
     const ctx = gsap.context(() => {
       gsap.set(items, {
         y: 48,
@@ -72,16 +74,31 @@ const Teacher = () => {
         },
       });
 
+      const showSideText = () => {
+        sideTextReveal?.kill();
+        sideTextReveal = gsap.delayedCall(1.45, () => {
+          section.classList.add("is-side-text-visible");
+        });
+      };
+
+      const hideSideText = () => {
+        sideTextReveal?.kill();
+        section.classList.remove("is-side-text-visible");
+      };
+
       ScrollTrigger.create({
         trigger: section,
         start: "top 78%",
-        onEnter: () => section.classList.add("is-side-text-visible"),
-        onEnterBack: () => section.classList.add("is-side-text-visible"),
-        onLeaveBack: () => section.classList.remove("is-side-text-visible"),
+        onEnter: showSideText,
+        onEnterBack: showSideText,
+        onLeaveBack: hideSideText,
       });
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      sideTextReveal?.kill();
+      ctx.revert();
+    };
   }, []);
 
   return (
