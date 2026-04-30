@@ -65,7 +65,7 @@
         vertical-align: top;
         border-right: 2px solid #431d25;
         animation:
-          banner-typing 5.2s steps(13, end) infinite,
+          banner-typing 6.8s steps(13, end) infinite,
           banner-caret 0.8s step-end infinite;
       }
       .typing-text-inner {
@@ -85,7 +85,9 @@
   }
   // 以묎컙 ?띿뒪???곸뿭--------------------
   .memorise {
-    margin: vw(120px) auto;
+    position: relative;
+    z-index: 1;
+    margin: vw(350px) auto;
     text-align: center;
     .memorise-reveal {
       will-change: transform, filter, opacity;
@@ -93,20 +95,27 @@
     h2 {
       font-size: vw(40px);
       color: #431d25;
-      margin-bottom: vw(24px);
+      margin-bottom: vw(60px);
       font-family: "Adamina", serif;
     }
     p {
       font-size: vw(20px);
       color: #3a3a3a;
       &.t1 {
-        margin-bottom: vw(12px);
+        margin-bottom: vw(60px);
       }
     }
   }
   // 援먯닔???곸뿭--------------------
+  .memorise-spacer {
+    position: relative;
+    z-index: 1;
+    height: 1900px;
+    pointer-events: none;
+  }
   .teacher {
     position: relative;
+    z-index: 2;
     overflow: hidden;
     --petal-fall-distance: #{vw(900px)};
     background-image: url("/images/bg02.jpg");
@@ -318,6 +327,9 @@
     display: none;
   }
   .letters {
+    position: relative;
+    z-index: 2;
+    background: #fbf5f7;
     .inner {
       margin: 0 auto;
       min-height: 100svh;
@@ -339,7 +351,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0;
+      margin-bottom: vw(50px);
       span {
         display: block;
         font-size: vw(18px);
@@ -488,9 +500,14 @@
   }
   // 媛ㅻ윭由??곸뿭--------------------
   .photos {
+    position: relative;
+    z-index: 2;
+    background: #fbf5f7;
+    padding-top: vw(120px);
     overflow-x: clip;
     .inner {
-      margin: vw(120px) auto 0;
+      margin: 0 auto;
+      padding-top: vw(120px);
       padding-bottom: vw(120px);
     }
     .br-hide {
@@ -505,13 +522,13 @@
     h2 {
       font-size: vw(40px);
       font-family: "Adamina", serif;
-      margin-bottom: vw(16px);
+      margin-bottom: vw(24px);
     }
     p {
       font-size: vw(18px);
       line-height: 1.6;
       color: #3a3a3a;
-      margin-bottom: vw(60px);
+      margin-bottom: vw(100px);
     }
     .photos-collage {
       display: grid;
@@ -991,13 +1008,14 @@
       height: 10px;
     }
     .banner {
-      height: 600px;
+      height: 500px;
       background-image: url("/images/bg01-m.jpg");
       background-position: -40px -60px;
       background-repeat: no-repeat;
       background-size: 115%;
       .inner {
         background: none;
+        height: 100%;
         justify-content: start;
         padding-top: 40px;
         padding-left: 0;
@@ -1058,6 +1076,10 @@
       display: none;
     }
 
+    .memorise-spacer {
+      display: none;
+    }
+
     .teacher {
       background-position: 50% 0;
       background-size: cover;
@@ -1070,7 +1092,8 @@
         background: rgba(255, 0, 0, 0.02);
       }
       .inner {
-        min-height: 300px;
+        min-height: 400px;
+        padding-bottom: 45px;
         .left {
           position: relative;
           &::before,
@@ -1125,7 +1148,7 @@
           .img-wrap {
             width: 167px;
             height: 209px;
-            margin-top: 44px;
+            margin-top: 50px;
             border-radius: 100px 100px 0 0;
             position: relative;
 
@@ -1152,15 +1175,17 @@
       .memorise-m {
         display: block;
         text-align: center;
-        margin-top: 40px;
+        margin-top: 60px;
         h2 {
           font-size: 28px;
           font-family: "Brygada 1918", serif;
           font-weight: 700;
           color: #431d25;
+          margin-bottom: 20px;
         }
         p {
           font-size: 12px;
+          margin-bottom: 16px;
         }
       }
       .flo {
@@ -1228,10 +1253,9 @@
 
     .mLetters {
       display: block;
-      height: 534px;
-      min-height: 534px;
-      max-height: 534px;
+      height: 700px;
       position: relative;
+
       .mobile-letters-slider {
         position: relative;
         width: 100%;
@@ -1364,7 +1388,7 @@
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         text-align: center;
         align-items: center;
       }
@@ -1374,10 +1398,12 @@
         font-family: "Brygada 1918", serif;
         color: #431d25;
         margin-bottom: 10px;
+        margin-top: 100px;
       }
       p {
-        margin-bottom: 14px;
+        margin-bottom: 50px;
         font-size: 12px;
+        line-height: 2;
       }
       .click {
         display: block;
@@ -1388,15 +1414,17 @@
         border-radius: 100px;
         font-weight: 600;
         width: 116px;
-        margin-top: 12px;
+        margin-top: 30px;
+        margin-bottom: 100px;
       }
     }
 
     .photos {
-      background: #fff;
+      background: #fbf5f7;
       padding-top: 20px;
       .inner {
         text-align: center;
+        padding-bottom: 100px;
       }
       .br-hide {
         display: block;
@@ -1407,10 +1435,11 @@
         font-weight: 700;
         font-family: "Brygada 1918", serif;
         color: #431d25;
+        margin-bottom: 20px;
       }
       p {
         font-size: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
       }
       .br-show {
         display: none;

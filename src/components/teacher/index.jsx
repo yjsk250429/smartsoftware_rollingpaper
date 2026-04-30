@@ -54,6 +54,28 @@ const Teacher = () => {
     let sideTextReveal;
 
     const ctx = gsap.context(() => {
+      const media = gsap.matchMedia();
+
+      media.add("(min-width: 481px)", () => {
+        gsap.fromTo(
+          section,
+          {
+            y: 160,
+          },
+          {
+            y: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "top 20%",
+              scrub: 1.4,
+              invalidateOnRefresh: true,
+            },
+          },
+        );
+      });
+
       gsap.set(items, {
         y: 48,
         opacity: 0,
@@ -93,6 +115,8 @@ const Teacher = () => {
         onEnterBack: showSideText,
         onLeaveBack: hideSideText,
       });
+
+      return () => media.revert();
     }, section);
 
     return () => {
