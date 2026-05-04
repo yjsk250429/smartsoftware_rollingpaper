@@ -19,14 +19,38 @@ const MLetters = () => {
   const isClosingRef = useRef(false);
 
   useEffect(() => {
-    if (selectedStudent) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
+    if (!selectedStudent) {
+      return undefined;
     }
 
+    const scrollY = window.scrollY;
+    const { body } = document;
+    const previousStyles = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+
+    body.classList.add("modal-open");
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
     return () => {
-      document.body.classList.remove("modal-open");
+      body.classList.remove("modal-open");
+      body.style.position = previousStyles.position;
+      body.style.top = previousStyles.top;
+      body.style.left = previousStyles.left;
+      body.style.right = previousStyles.right;
+      body.style.width = previousStyles.width;
+      body.style.overflow = previousStyles.overflow;
+      window.scrollTo(0, scrollY);
     };
   }, [selectedStudent]);
 

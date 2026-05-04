@@ -212,7 +212,6 @@ const Photos = () => {
     let animationFrame;
     let isPointerDown = false;
     let lastFrameTime = 0;
-    let scrollRemainder = 0;
     const pixelsPerSecond = 38;
 
     const getSetWidth = () => {
@@ -242,14 +241,10 @@ const Photos = () => {
 
       if (mediaQuery.matches && !isPointerDown && !selectedPhotoRef.current) {
         const deltaTime = Math.min(frameTime - lastFrameTime, 64);
+        const scrollAmount = (pixelsPerSecond * deltaTime) / 1000;
 
-        scrollRemainder += (pixelsPerSecond * deltaTime) / 1000;
-
-        if (scrollRemainder >= 1) {
-          const scrollAmount = Math.floor(scrollRemainder);
-
+        if (scrollAmount > 0) {
           marquee.scrollLeft += scrollAmount;
-          scrollRemainder -= scrollAmount;
           normalizeScroll();
         }
       }

@@ -1229,7 +1229,7 @@
         display: none;
       }
       .teacher-petals {
-        // display: none;
+        z-index: 0;
       }
       &.is-side-text-visible {
         .inner {
