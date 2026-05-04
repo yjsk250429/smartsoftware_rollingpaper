@@ -18,9 +18,10 @@ const Home = () => {
       return undefined;
     }
 
+    const teacher = document.querySelector(".teacher");
     const items = Array.from(memorise.querySelectorAll(".memorise-reveal"));
 
-    if (!items.length) {
+    if (!items.length || !teacher) {
       return undefined;
     }
 
@@ -30,9 +31,34 @@ const Home = () => {
     const ctx = gsap.context(() => {
       media = gsap.matchMedia();
       media.add("(min-width: 481px)", () => {
+        let revealTimeline;
+        let fadeMemorise;
+
+        const resetMemorise = () => {
+          revealTimeline?.progress(0);
+          fadeMemorise?.progress(0);
+          gsap.set(memorise, {
+            opacity: 1,
+            filter: "blur(0px)",
+            y: 0,
+            zIndex: 1,
+          });
+          gsap.set(items, {
+            opacity: 0,
+            filter: "blur(12px)",
+            y: 0,
+          });
+        };
+
         gsap.set(items, {
           opacity: 0,
           filter: "blur(12px)",
+          y: 0,
+        });
+        gsap.set(memorise, {
+          opacity: 1,
+          filter: "blur(0px)",
+          y: 0,
         });
 
         ScrollTrigger.create({
@@ -46,7 +72,7 @@ const Home = () => {
           refreshPriority: 2,
         });
 
-        const timeline = gsap.timeline({
+        revealTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: memorise,
             start: "center center",
@@ -54,10 +80,11 @@ const Home = () => {
             scrub: 2,
             invalidateOnRefresh: true,
             refreshPriority: 1,
+            onLeaveBack: resetMemorise,
           },
         });
 
-        timeline
+        revealTimeline
           .to("h2", {
             opacity: 1,
             filter: "blur(0px)",
@@ -80,6 +107,28 @@ const Home = () => {
             },
             "+=0.25",
           );
+
+        fadeMemorise = gsap.timeline({
+          scrollTrigger: {
+            trigger: teacher,
+            start: "top 95%",
+            end: "top 35%",
+            scrub: 2.4,
+            invalidateOnRefresh: true,
+            refreshPriority: 1,
+            onEnter: () => gsap.set(memorise, { zIndex: 3 }),
+            onEnterBack: () => gsap.set(memorise, { zIndex: 3 }),
+            onLeave: () => gsap.set(memorise, { zIndex: 0 }),
+            onLeaveBack: () => gsap.set(memorise, { zIndex: 1 }),
+          },
+        });
+
+        fadeMemorise.to(memorise, {
+          opacity: 0,
+          filter: "blur(24px)",
+          y: -24,
+          ease: "none",
+        });
 
         refreshCall = gsap.delayedCall(0, () => ScrollTrigger.refresh());
       });

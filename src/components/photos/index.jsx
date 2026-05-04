@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import galleryPhotos from "../../api/gallery";
+import { IoClose } from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -372,7 +373,9 @@ const Photos = () => {
             onClick={() => setSelectedPhoto(null)}
             aria-label="Close"
           >
-            x
+            <i>
+              <IoClose />
+            </i>
           </button>
           <div
             className="photo-modal"

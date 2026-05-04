@@ -122,6 +122,8 @@
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: cover;
+    margin-bottom: 250px;
+    box-shadow: 0 250px 0 #fbf5f7;
     .flo {
       position: absolute;
       transform: translate3d(0, var(--flo-start-y, 0), 0)
@@ -673,6 +675,13 @@
   font-size: vw(30px);
   line-height: 1;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  i {
+    display: block;
+    line-height: vw(20px);
+  }
 }
 
 @keyframes photo-modal-fade {
@@ -992,6 +1001,28 @@
   }
 }
 
+@keyframes teacher-mobile-arc-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes teacher-mobile-name-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 480px) {
   .home {
     .inner {
@@ -1085,6 +1116,8 @@
       background-size: cover;
       min-height: 445px;
       --petal-fall-distance: calc(100svh + 120px);
+      margin-bottom: 0;
+      box-shadow: none;
       &::after {
         content: "";
         position: absolute;
@@ -1133,6 +1166,8 @@
             height: 78px;
             overflow: visible;
             pointer-events: none;
+            opacity: 0;
+            transform: translateY(-14px);
 
             path {
               fill: none;
@@ -1163,6 +1198,8 @@
             margin-top: 16px;
             font-weight: 800;
             font-size: 18px;
+            opacity: 0;
+            transform: translateY(14px);
             span {
               font-size: 24px;
             }
@@ -1197,6 +1234,16 @@
       &.is-side-text-visible {
         .inner {
           .left {
+            .teacher-name-arc {
+              animation: teacher-mobile-arc-reveal 0.85s
+                cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+            }
+
+            .m-show {
+              animation: teacher-mobile-name-reveal 0.85s
+                cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+            }
+
             &::before {
               opacity: 0.3;
               animation: teacher-side-type-before 2.8s steps(13, end) infinite;
