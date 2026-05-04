@@ -84,7 +84,7 @@ const MLetters = () => {
         scrollTrigger: {
           trigger: section,
           start: "top 78%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
     }, section);
