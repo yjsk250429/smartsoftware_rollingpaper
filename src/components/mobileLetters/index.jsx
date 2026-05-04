@@ -23,34 +23,44 @@ const MLetters = () => {
       return undefined;
     }
 
-    const scrollY = window.scrollY;
     const { body } = document;
+    const { documentElement } = document;
     const previousStyles = {
-      position: body.style.position,
-      top: body.style.top,
-      left: body.style.left,
-      right: body.style.right,
-      width: body.style.width,
       overflow: body.style.overflow,
+      htmlOverflow: documentElement.style.overflow,
+      overscrollBehavior: body.style.overscrollBehavior,
+      htmlOverscrollBehavior: documentElement.style.overscrollBehavior,
+      touchAction: body.style.touchAction,
+    };
+    const preventBackgroundScroll = (event) => {
+      if (!event.target.closest(".letters-modal")) {
+        event.preventDefault();
+      }
     };
 
     body.classList.add("modal-open");
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
     body.style.overflow = "hidden";
+    documentElement.style.overflow = "hidden";
+    body.style.overscrollBehavior = "none";
+    documentElement.style.overscrollBehavior = "none";
+    body.style.touchAction = "none";
+    document.addEventListener("touchmove", preventBackgroundScroll, {
+      passive: false,
+    });
+    document.addEventListener("wheel", preventBackgroundScroll, {
+      passive: false,
+    });
 
     return () => {
       body.classList.remove("modal-open");
-      body.style.position = previousStyles.position;
-      body.style.top = previousStyles.top;
-      body.style.left = previousStyles.left;
-      body.style.right = previousStyles.right;
-      body.style.width = previousStyles.width;
       body.style.overflow = previousStyles.overflow;
-      window.scrollTo(0, scrollY);
+      documentElement.style.overflow = previousStyles.htmlOverflow;
+      body.style.overscrollBehavior = previousStyles.overscrollBehavior;
+      documentElement.style.overscrollBehavior =
+        previousStyles.htmlOverscrollBehavior;
+      body.style.touchAction = previousStyles.touchAction;
+      document.removeEventListener("touchmove", preventBackgroundScroll);
+      document.removeEventListener("wheel", preventBackgroundScroll);
     };
   }, [selectedStudent]);
 
