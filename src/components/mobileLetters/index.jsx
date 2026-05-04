@@ -229,7 +229,7 @@ const MLetters = () => {
                 CLOSE
               </button>
               <div className="letters-modal-content">
-                <p>{selectedStudent.letter}</p>
+                <p>{selectedStudent.mLetter}</p>
                 <em>{selectedStudent.name} 올림</em>
               </div>
             </div>

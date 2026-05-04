@@ -1039,7 +1039,7 @@
       height: 10px;
     }
     .banner {
-      height: 500px;
+      height: 600px;
       background-image: url("/images/bg01-m.jpg");
       background-position: -40px -60px;
       background-repeat: no-repeat;
@@ -1309,7 +1309,7 @@
       }
 
       .swiper {
-        width: 100%;
+        width: 70%;
         padding-bottom: 30px;
       }
 
@@ -1367,7 +1367,12 @@
           background: currentColor;
         }
       }
-
+      .mobile-letters-nav--prev,
+      .mobile-letters-nav--next {
+        // padding: 10px;
+        width: 40px;
+        height: 50px;
+      }
       .mobile-letters-nav--prev {
         left: 14px;
 
@@ -1563,25 +1568,25 @@
 
   .letters-modal {
     width: 317px;
-    height: 213px;
+    height: 400px;
     max-width: 317px;
-    max-height: 213px;
+    max-height: 400px;
     border-radius: 24px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 0 0;
+    background-position: 80% 0;
   }
 
   .letters-modal-content {
     padding: 10px 8px 24px 8px;
 
     p {
-      font-size: 10px;
+      font-size: 14px;
       line-height: 1.6;
     }
 
     em {
-      font-size: 10px;
+      font-size: 14px;
     }
   }
 
